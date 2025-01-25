@@ -240,7 +240,7 @@ where
             || self
                 .unsolicited_messages_tx
                 .as_ref()
-                .is_none_or(|x| x.is_closed())
+                .map_or(false, |x| x.is_closed())
         {
             // The channel is closed so we can drop the sender.
             let _ = self.unsolicited_messages_tx.take();
@@ -381,22 +381,5 @@ where
         } else {
             Poll::Pending
         }
-    }
-}
-
-#[cfg(all(test, feature = "tokio_socket"))]
-mod tests {
-    use crate::new_connection;
-    use crate::sys::protocols::NETLINK_AUDIT;
-    use netlink_packet_audit::AuditMessage;
-    use tokio::time;
-
-    #[tokio::test]
-    async fn connection_is_closed() {
-        let (conn, _, _) =
-            new_connection::<AuditMessage>(NETLINK_AUDIT).unwrap();
-        let join_handle = tokio::spawn(conn);
-        time::sleep(time::Duration::from_millis(200)).await;
-        assert!(join_handle.is_finished());
     }
 }

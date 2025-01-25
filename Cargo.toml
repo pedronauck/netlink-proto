@@ -4,11 +4,11 @@ name = "netlink-proto"
 version = "0.11.4"
 edition = "2018"
 
-homepage = "https://github.com/rust-netlink/netlink-proto"
+homepage = "https://github.com/pedronauck/netlink-proto"
 keywords = ["netlink", "linux", "async"]
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/rust-netlink/netlink-proto"
+repository = "https://github.com/pedronauck/netlink-proto"
 description = "async netlink protocol"
 
 [dependencies]
@@ -28,15 +28,4 @@ smol_socket = ["netlink-sys/smol_socket"]
 env_logger = "0.8.2"
 tokio = { version = "1.0.1", default-features = false, features = ["macros", "rt-multi-thread", "time"] }
 netlink-packet-route = { version = "0.18.1" }
-netlink-packet-audit = { version = "0.5.0" }
 async-std = {version = "1.9.0", features = ["attributes"]}
-
-[[example]]
-name = "dump_links"
-
-[[example]]
-name = "dump_links_async"
-required-features = ["tokio_socket"]
-
-[[example]]
-name = "audit_netlink_events"
